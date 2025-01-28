@@ -1,18 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Appointment = require('../models/appointment');
+const appointmentController = require("../controllers/appointment");
 
-// Obtener todas las citas
-router.get('/', async (req, res) => {
-  const appointments = await Appointment.find().populate('client employee service');
-  res.json(appointments);
-});
+// Definir rutas
+router.get("/", appointmentController.getAppointments);
+router.post("/", appointmentController.createAppointment);
+router.put("/:id", appointmentController.updateAppointment);
+router.delete("/:id", appointmentController.deleteAppointment);
 
-// Crear una nueva cita
-router.post('/', async (req, res) => {
-  const appointment = new Appointment(req.body);
-  await appointment.save();
-  res.status(201).json(appointment);
-});
-
-module.exports = router;
+module.exports = router; 

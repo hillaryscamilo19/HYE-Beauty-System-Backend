@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+const express = require("express");
+const { getBills, createBill, updateBill, deleteBill } = require("../controllers/billing");
 
-const BillingSchema = new mongoose.Schema({
-  client: { type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: true },
-  appointment: { type: mongoose.Schema.Types.ObjectId, ref: 'Appointment', required: true },
-  totalAmount: { type: Number, required: true },
-  paymentMethod: { type: String, required: true }, // Tarjeta, Efectivo, Transferencia
-  status: { type: String, default: 'Pendiente' } // Pagado, Pendiente
-}, { timestamps: true });
+const router = express.Router();
 
-module.exports = mongoose.model('Billing', BillingSchema);
+router.get("/", getBills);
+router.post("/", createBill);
+router.put("/:id", updateBill);
+router.delete("/:id", deleteBill);
+
+module.exports = router;

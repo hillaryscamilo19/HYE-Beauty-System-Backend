@@ -1,11 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const BillingSchema = new mongoose.Schema({
-  client: { type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: true },
-  appointment: { type: mongoose.Schema.Types.ObjectId, ref: 'Appointment', required: true },
-  totalAmount: { type: Number, required: true },
-  paymentMethod: { type: String, required: true }, // Tarjeta, Efectivo, Transferencia
-  status: { type: String, default: 'Pendiente' } // Pagado, Pendiente
-}, { timestamps: true });
+const billingSchema = new mongoose.Schema({
+  client: { type: mongoose.Schema.Types.ObjectId, ref: "Client" },
+  services: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
+  total: Number,
+  date: { type: Date, default: Date.now },
+});
 
-module.exports = mongoose.model('Billing', BillingSchema);
+module.exports = mongoose.model("Billing", billingSchema);
