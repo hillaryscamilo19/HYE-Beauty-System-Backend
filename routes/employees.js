@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
+const express = require("express");
+const { getEmployees, createEmployee, updateEmployee, deleteEmployee } = require("../controllers/employees");
 
-const EmployeeSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, unique: true, required: true },
-  phone: { type: String, required: true },
-  role: { type: String, required: true } // Estilista, Manicurista, etc.
-}, { timestamps: true });
+const router = express.Router();
 
-module.exports = mongoose.model('Employee', EmployeeSchema);
+router.get("/", getEmployees);
+router.post("/", createEmployee);
+router.put("/:id", updateEmployee);
+router.delete("/:id", deleteEmployee);
+
+module.exports = router;

@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+const express = require("express");
+const {getClients, createClient} = require("../controllers/clients");
 
-const ClientSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, unique: true, required: true },
-  phone: { type: String, required: true }
-}, { timestamps: true });
+const router = express.Router();
 
-module.exports = mongoose.model('Client', ClientSchema);
+router.get("/", getClients);
+router.post("/", createClient);
+
+module.exports = router;
